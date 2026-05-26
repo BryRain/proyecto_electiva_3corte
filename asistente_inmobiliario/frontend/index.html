@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Asistente Inmobiliario Inteligente</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div id="app">
+        <!-- Auth Section -->
+        <div id="auth-section" class="auth-container hidden">
+            <div class="auth-box">
+                <h1>Asistente Inmobiliario IA</h1>
+                
+                <!-- Login Form -->
+                <div id="login-form" class="form-section">
+                    <h2>Iniciar Sesión</h2>
+                    <form>
+                        <input type="email" id="login-email" placeholder="Email" required>
+                        <input type="password" id="login-password" placeholder="Contraseña" required>
+                        <button type="submit" class="btn btn-primary">Ingresar</button>
+                        <p class="toggle-form">¿No tienes cuenta? <a href="#" onclick="toggleAuthForm()">Registrarse</a></p>
+                    </form>
+                    <div id="login-error" class="error-message"></div>
+                </div>
+                
+                <!-- Register Form -->
+                <div id="register-form" class="form-section hidden">
+                    <h2>Crear Cuenta</h2>
+                    <form>
+                        <input type="email" id="register-email" placeholder="Email" required>
+                        <input type="text" id="register-username" placeholder="Usuario" required>
+                        <input type="text" id="register-fullname" placeholder="Nombre completo">
+                        <input type="password" id="register-password" placeholder="Contraseña" required>
+                        <input type="password" id="register-confirm" placeholder="Confirmar contraseña" required>
+                        <button type="submit" class="btn btn-primary">Registrarse</button>
+                        <p class="toggle-form">¿Ya tienes cuenta? <a href="#" onclick="toggleAuthForm()">Ingresar</a></p>
+                    </form>
+                    <div id="register-error" class="error-message"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Main App Section -->
+        <div id="app-section" class="app-container hidden">
+            <!-- Header -->
+            <header class="header">
+                <div class="header-content">
+                    <h1>🏠 Asistente Inmobiliario IA</h1>
+                    <div class="user-menu">
+                        <span id="user-greeting"></span>
+                        <button id="logout-btn" class="btn btn-secondary">Salir</button>
+                    </div>
+                </div>
+            </header>
+
+            <!-- Main Content -->
+            <main class="main-content">
+                <div class="container">
+                    <!-- Navigation Tabs -->
+                    <nav class="nav-tabs">
+                        <button class="tab-btn active" data-tab="search">🔍 Búsqueda IA</button>
+                        <button class="tab-btn" data-tab="properties">🏘️ Propiedades</button>
+                        <button class="tab-btn" data-tab="favorites">❤️ Favoritos</button>
+                        <button class="tab-btn" data-tab="agents">🤖 Agentes</button>
+                        <button class="tab-btn" data-tab="documents">📄 Documentos</button>
+                    </nav>
+
+                    <!-- Tab Content -->
+                    <!-- AI Search Tab -->
+                    <section id="search-tab" class="tab-content active">
+                        <h2>Búsqueda Inteligente con IA</h2>
+                        <div class="search-section">
+                            <div class="search-input-group">
+                                <input type="text" id="ai-search-input" 
+                                       placeholder="Pregunta sobre propiedades: ej. 'Busco apartamento de 3 habitaciones en Medellín bajo $300,000'">
+                                <button id="ai-search-btn" class="btn btn-primary">Buscar con IA</button>
+                            </div>
+                            <div id="search-loading" class="loading hidden">Analizando con IA...</div>
+                        </div>
+
+                        <!-- AI Response -->
+                        <div id="ai-response" class="response-container hidden">
+                            <div class="response-header">
+                                <h3>Análisis IA</h3>
+                                <button class="btn-close">×</button>
+                            </div>
+                            <div id="ai-response-content" class="response-content"></div>
+                            
+                            <!-- Agents Responses -->
+                            <div class="agents-section">
+                                <h4>Análisis por Especialista:</h4>
+                                <div id="agents-responses" class="agents-grid"></div>
+                            </div>
+
+                            <!-- RAG Results -->
+                            <div class="rag-section">
+                                <h4>Documentos Relevantes (RAG):</h4>
+                                <div id="rag-results" class="rag-results"></div>
+                            </div>
+                        </div>
+
+                        <!-- Search History -->
+                        <div class="history-section">
+                            <h3>Historial de Búsquedas</h3>
+                            <div id="search-history" class="history-list"></div>
+                        </div>
+                    </section>
+
+                    <!-- Properties Tab -->
+                    <section id="properties-tab" class="tab-content">
+                        <h2>Explorar Propiedades</h2>
+                        
+                        <!-- Filters -->
+                        <div class="filters-section">
+                            <input type="text" id="filter-city" placeholder="Ciudad" class="filter-input">
+                            <input type="number" id="filter-min-price" placeholder="Precio mínimo" class="filter-input">
+                            <input type="number" id="filter-max-price" placeholder="Precio máximo" class="filter-input">
+                            <select id="filter-type" class="filter-input">
+                                <option value="">Tipo de propiedad</option>
+                                <option value="apartment">Apartamento</option>
+                                <option value="house">Casa</option>
+                                <option value="office">Oficina</option>
+                                <option value="commercial">Comercial</option>
+                            </select>
+                            <input type="number" id="filter-bedrooms" placeholder="Habitaciones" class="filter-input">
+                            <button id="apply-filters-btn" class="btn btn-primary">Aplicar Filtros</button>
+                            <button id="clear-filters-btn" class="btn btn-secondary">Limpiar</button>
+                        </div>
+
+                        <!-- Properties Grid -->
+                        <div id="properties-grid" class="properties-grid">
+                            <div class="no-results">Cargando propiedades...</div>
+                        </div>
+
+                        <!-- Pagination -->
+                        <div id="pagination" class="pagination"></div>
+                    </section>
+
+                    <!-- Favorites Tab -->
+                    <section id="favorites-tab" class="tab-content">
+                        <h2>Propiedades Favoritas</h2>
+                        <div id="favorites-grid" class="properties-grid">
+                            <div class="no-results">No hay favoritos aún</div>
+                        </div>
+                    </section>
+
+                    <!-- Agents Tab -->
+                    <section id="agents-tab" class="tab-content">
+                        <h2>Consultar Agentes Especializados</h2>
+                        <div class="agents-section">
+                            <div id="agents-list" class="agents-list"></div>
+                        </div>
+
+                        <!-- Agent Execution -->
+                        <div class="agent-exec-section">
+                            <h3>Ejecutar Agente Específico</h3>
+                            <select id="agent-select" class="form-control">
+                                <option value="">Seleccionar agente...</option>
+                            </select>
+                            <textarea id="agent-task" placeholder="Describe la tarea..." class="form-control"></textarea>
+                            <button id="execute-agent-btn" class="btn btn-primary">Ejecutar</button>
+                            <div id="agent-result" class="result-box hidden"></div>
+                        </div>
+                    </section>
+
+                    <!-- Documents Tab -->
+                    <section id="documents-tab" class="tab-content">
+                        <h2>Gestión de Documentos (RAG)</h2>
+                        
+                        <div class="documents-section">
+                            <h3>Subir Documentos</h3>
+                            <div class="upload-area" id="upload-area">
+                                <input type="file" id="file-input" accept=".pdf,.txt" multiple>
+                                <p>Arrastra documentos aquí o haz click para seleccionar</p>
+                                <p class="small">(Soporta PDF y TXT)</p>
+                            </div>
+                            <button id="upload-btn" class="btn btn-primary">Subir Documentos</button>
+                            <div id="upload-status" class="status-message"></div>
+                        </div>
+
+                        <div class="documents-section">
+                            <h3>Buscar en Documentos</h3>
+                            <div class="search-input-group">
+                                <input type="text" id="doc-search-input" 
+                                       placeholder="Buscar en documentos...">
+                                <button id="doc-search-btn" class="btn btn-primary">Buscar</button>
+                            </div>
+                            <div id="doc-search-results" class="search-results"></div>
+                        </div>
+                    </section>
+                </div>
+            </main>
+
+            <!-- Footer -->
+            <footer class="footer">
+                <p>Asistente Inmobiliario Inteligente © 2026 - Con IA y Multi-Agent</p>
+            </footer>
+        </div>
+    </div>
+
+    <!-- Modal para detalles de propiedad -->
+    <div id="property-modal" class="modal hidden">
+        <div class="modal-content">
+            <span class="modal-close">&times;</span>
+            <div id="modal-body"></div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="js/api.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/ui.js"></script>
+    <script src="js/app.js"></script>
+</body>
+</html>
