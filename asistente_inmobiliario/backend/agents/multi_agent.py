@@ -173,11 +173,12 @@ class MultiAgent:
         return results
     
     def execute_agent(self, agent_name: str, task: str, context: dict = None) -> dict:
-        """Ejecutar un agent específico"""
-        if agent_name not in self.agents:
+        agent = self.agents.get(agent_name)
+        if agent is None:
+            agent = next((a for a in self.agents.values() if a.name == agent_name), None)
+        if agent is None:
             return {'error': f'Agent {agent_name} not found'}
-        
-        return self.agents[agent_name].execute(task, context)
+        return agent.execute(task, context)
     
     def get_agents_info(self) -> list:
         """Obtener información de los agentes disponibles"""

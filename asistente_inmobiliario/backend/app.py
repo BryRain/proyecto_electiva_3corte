@@ -3,6 +3,9 @@ from flask import Flask, request, jsonify, send_from_directory
 from flask_cors import CORS
 from flask_jwt_extended import JWTManager, jwt_required, get_jwt_identity
 from dotenv import load_dotenv
+from sqlalchemy import event, func
+from sqlalchemy.engine import Engine
+import unicodedata
 import os
 from pathlib import Path
 
@@ -16,6 +19,15 @@ from backend.auth.auth_routes import auth_bp
 from backend.rag.vector_store import VectorStore
 from backend.rag.document_processor import DocumentProcessor
 from backend.agents.multi_agent import MultiAgent
+
+def _normalize(text):
+    if text is None:
+        return None
+    return unicodedata.normalize('NFD', text).encode('ascii', 'ignore').decode('ascii').lower()
+
+@event.listens_for(Engine, "connect")
+def _register_sqlite_functions(dbapi_conn, _):
+    dbapi_conn.create_function("normalize_text", 1, _normalize)
 
 # Crear aplicación Flask con carpeta estática del frontend
 frontend_path = os.path.join(os.path.dirname(__file__), '..', 'frontend')
@@ -67,7 +79,7 @@ def get_properties():
         query = Property.query
         
         if city:
-            query = query.filter_by(city=city)
+            query = query.filter(func.normalize_text(Property.city) == _normalize(city))
         if min_price:
             query = query.filter(Property.price >= min_price)
         if max_price:
@@ -300,11 +312,10 @@ def rag_search():
 @app.route('/api/favorites', methods=['GET'])
 @jwt_required()
 def get_favorites():
-    """Obtener propiedades favoritas del usuario"""
     try:
-        user_id = get_jwt_identity()
+        user_id = int(get_jwt_identity())
         from backend.database.models import User
-        
+
         user = User.query.get(user_id)
         if not user:
             return jsonify({'error': 'Usuario no encontrado'}), 404
@@ -322,11 +333,10 @@ def get_favorites():
 @app.route('/api/favorites/<int:property_id>', methods=['POST'])
 @jwt_required()
 def add_favorite(property_id):
-    """Añadir propiedad a favoritos"""
     try:
-        user_id = get_jwt_identity()
+        user_id = int(get_jwt_identity())
         from backend.database.models import User
-        
+
         user = User.query.get(user_id)
         property = Property.query.get(property_id)
         
@@ -345,11 +355,10 @@ def add_favorite(property_id):
 @app.route('/api/favorites/<int:property_id>', methods=['DELETE'])
 @jwt_required()
 def remove_favorite(property_id):
-    """Remover propiedad de favoritos"""
     try:
-        user_id = get_jwt_identity()
+        user_id = int(get_jwt_identity())
         from backend.database.models import User
-        
+
         user = User.query.get(user_id)
         property = Property.query.get(property_id)
         
@@ -397,6 +406,6 @@ if __name__ == '__main__':
     
     app.run(
         host='0.0.0.0',
-        port=int(os.getenv('PORT', 5000)),
+        port=int(os.getenv('PORT', 5001)),
         debug=app.config['DEBUG']
     )
