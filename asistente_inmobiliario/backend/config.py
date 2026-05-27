@@ -11,9 +11,9 @@ class Config:
     SQLALCHEMY_DATABASE_URI = os.getenv('DATABASE_URL', 'sqlite:///inmobiliario.db')
     SQLALCHEMY_TRACK_MODIFICATIONS = False
     
-    # OpenAI/Anthropic
+    # OpenAI / Google Gemini
     OPENAI_API_KEY = os.getenv('OPENAI_API_KEY')
-    ANTHROPIC_API_KEY = os.getenv('ANTHROPIC_API_KEY')
+    GEMINI_API_KEY = os.getenv('GEMINI_API_KEY') or os.getenv('GOOGLE_API_KEY')
     
     # RAG
     RAG_DB_PATH = os.path.join(os.path.dirname(__file__), '../data/vectordb')

@@ -1,44 +1,61 @@
-import anthropic
+import os
 from typing import Optional
 import json
 
+from google import genai
+from google.genai import types
+
+GEMINI_MODEL = os.getenv("GEMINI_MODEL", "gemini-2.0-flash")
+
+
 class Agent:
     """Agent individual que ejecuta tareas específicas"""
-    
+
     def __init__(self, name: str, role: str, instructions: str):
         self.name = name
         self.role = role
         self.instructions = instructions
-        self.client = anthropic.Anthropic()
-    
+        self._client = None
+
+    def _get_client(self):
+        """Crea el cliente de Gemini de forma perezosa (solo al usarse)."""
+        if self._client is None:
+            api_key = os.getenv("GEMINI_API_KEY") or os.getenv("GOOGLE_API_KEY")
+            if not api_key:
+                raise RuntimeError(
+                    "Falta la API key de Gemini. Define GEMINI_API_KEY en el archivo .env"
+                )
+            self._client = genai.Client(api_key=api_key)
+        return self._client
+
     def execute(self, task: str, context: dict = None) -> dict:
         """Ejecutar tarea del agent"""
         context_str = json.dumps(context) if context else ""
-        
+
         prompt = f"""
         You are {self.name}, a {self.role}.
-        
+
         Instructions: {self.instructions}
-        
+
         Context: {context_str}
-        
+
         Task: {task}
-        
+
         Provide a structured response with:
         1. Analysis
         2. Recommendations
         3. Next steps
         """
-        
-        message = self.client.messages.create(
-            model="claude-3-5-sonnet-20241022",
-            max_tokens=1024,
-            messages=[{"role": "user", "content": prompt}]
+
+        response = self._get_client().models.generate_content(
+            model=GEMINI_MODEL,
+            contents=prompt,
+            config=types.GenerateContentConfig(max_output_tokens=1024),
         )
-        
+
         return {
             'agent': self.name,
-            'response': message.content[0].text,
+            'response': response.text,
             'status': 'completed'
         }
 
