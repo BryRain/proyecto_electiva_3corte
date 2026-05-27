@@ -10,7 +10,6 @@ class Agent:
         self.name = name
         self.role = role
         self.instructions = instructions
-        # Configurar OpenRouter API
         self.api_key = os.getenv('OPENROUTER_API_KEY')
         if not self.api_key:
             raise ValueError("OPENROUTER_API_KEY no está configurada")

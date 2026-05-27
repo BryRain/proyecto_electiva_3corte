@@ -1,0 +1,101 @@
+# Regulaciones Inmobiliarias en Colombia
+
+## Leyes Principales
+
+### Ley 1480 de 2011 - Estatuto del Consumidor
+Protege los derechos de los consumidores en transacciones inmobiliarias.
+- Información clara y veraz sobre inmuebles
+- Derecho a retractación en ciertos casos
+- Protección contra publicidad engañosa
+
+### Ley 1579 de 2012 - Habeas Data
+Protege el derecho a la información personal en registros.
+- Acceso a información personal
+- Rectificación de datos
+- Supresión de datos
+
+### Decreto 2080 de 2014
+Regula el Sistema Nacional de Identificación de Bienes Inmuebles (SNBIM).
+- Identificación única de propiedades
+- Información catastr al integrada
+
+## Proceso de Compraventa de Inmuebles
+
+### Fase 1: Búsqueda y Negociación (1-2 semanas)
+- Ubicación del inmueble
+- Verificación de documentos
+- Negociación de precio
+- Promesa de compraventa
+
+### Fase 2: Financiamiento (1-4 semanas)
+- Solicitud de crédito hipotecario (si aplica)
+- Evaluación por banco
+- Aprobación del crédito
+- Avalúo del inmueble
+
+### Fase 3: Formalización (1-2 semanas)
+- Revisión de documentos por notario
+- Firma de escritura pública
+- Registro en RRPI (Registro de Instrumentos Públicos)
+
+### Fase 4: Entrega (1 día)
+- Entrega de llaves
+- Cancelación de saldos pendientes
+- Traslado de servicios
+
+## Derechos del Propietario
+
+1. **Dominio absoluto**: Control total del inmueble
+2. **Usufructo**: Derecho a usar y obtener ingresos
+3. **Disposición**: Derecho a vender o arrendar
+4. **Exclusión**: Derecho a excluir a terceros
+5. **Herencia**: Derecho a transmitir a herederos
+
+## Obligaciones del Propietario
+
+1. Pagar impuesto predial
+2. Mantener el inmueble en buen estado
+3. Respetar derechos de terceros
+4. Cumplir con normas de seguridad
+5. Pagar servicios públicos si es arrendador
+
+## Arrendamiento de Inmuebles
+
+### Derechos del Arrendatario
+- Vivienda digna y segura
+- Privacidad
+- Plazo determinado (mínimo 1 año)
+- Protección contra desalojo arbitrario
+
+### Obligaciones del Arrendatario
+- Pagar renta puntualmente
+- Conservar el inmueble
+- Respetar convivencia
+- No subarrendar sin autorización
+
+### Derechos del Arrendador
+- Percibir la renta
+- Recuperar el inmueble después del contrato
+- Exigir depósito de caución
+- Reparaciones por daño doloso
+
+## Impuestos en Transacciones Inmobiliarias
+
+### Impuesto de Transferencia Inmobiliaria
+- Tasa: 0.5% a 2% según municipio
+- Base: Valor declarado del inmueble
+- Pagador: Comprador (generalmente)
+
+### Impuesto Predial
+- Tasa: 0.4% a 1.2% del avalúo
+- Municipio: Donde está ubicado
+- Frecuencia: Anual
+
+### Impuesto de Renta (para arrendadores)
+- Sobre ingresos por arrendamiento
+- Tasa: Según tarifa general
+- Descuentos: Gastos de administración
+
+---
+Documento de referencia sobre regulaciones inmobiliarias.
+Actualizado: 2026

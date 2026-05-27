@@ -13,7 +13,19 @@ function initTabNavigation() {
             // Add active class to clicked
             button.classList.add('active');
             const tabName = button.getAttribute('data-tab');
-            document.getElementById(`${tabName}-tab`).classList.add('active');
+            const tabElement = document.getElementById(`${tabName}-tab`);
+            if (tabElement) {
+                tabElement.classList.add('active');
+                
+                // Load data based on tab
+                if (tabName === 'properties') {
+                    loadProperties();
+                } else if (tabName === 'favorites') {
+                    loadFavorites();
+                } else if (tabName === 'agents') {
+                    loadAgents();
+                }
+            }
         });
     });
 }

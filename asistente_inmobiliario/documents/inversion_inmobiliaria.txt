@@ -1,0 +1,138 @@
+# Guía de Inversión Inmobiliaria
+
+## Estrategias de Inversión
+
+### 1. Compra y Arriendo (Cash Flow)
+Objetivo: Generar ingresos mensuales constantes.
+- Buscar propiedades con buena rentabilidad
+- Calcular ROI anual: (Renta anual / Valor de compra) × 100
+- ROI objetivo: 8-15% anual
+- Zonas recomendadas: Chicó, El Poblado, Laureles
+
+### 2. Compra y Venta (Flipping)
+Objetivo: Ganar por apreciación en corto plazo.
+- Identificar zonas en crecimiento
+- Renovar o mejorar la propiedad
+- Revender con ganancia
+- Plazo: 1-3 años
+
+### 3. Desarrollo de Proyectos
+Objetivo: Mayor rentabilidad con mayor riesgo.
+- Adquirir lotes
+- Desarrollar proyectos residenciales
+- Comercializar unidades
+- Plazo: 3-5 años
+
+### 4. REITs - Fondos de Inversión Inmobiliaria
+Objetivo: Diversificación sin gestión directa.
+- Acciones en fondos inmobiliarios
+- Dividendos regulares
+- Menor riesgo
+- Liquidez alta
+
+## Indicadores de Viabilidad
+
+### Precio por Metro Cuadrado
+- Bogotá norte: $3M - $5M COP/m²
+- Medellín El Poblado: $2M - $4M COP/m²
+- Cali Centro: $800K - $1.5M COP/m²
+
+### Yield Bruto (Rentabilidad)
+- Bueno: > 6% anual
+- Excelente: > 10% anual
+- Fórmula: (Renta mensual × 12 / Precio compra) × 100
+
+### Ratio Precio-Renta (Cap Rate)
+- Bajo: 2-4% (zonas premium)
+- Medio: 4-7% (zonas intermedias)
+- Alto: 7-12% (zonas emergentes)
+
+## Factores a Considerar
+
+### Ubicación
+1. Proximidad a transporte público
+2. Cercanía a comercios y servicios
+3. Seguridad del sector
+4. Valorización histórica
+5. Planes de desarrollo urbano
+
+### Tipo de Inmueble
+1. Apartamentos: Liquidez, menor mantenimiento
+2. Casas: Mayor rentabilidad, mayor inversión
+3. Locales: Estabilidad de inquilino
+4. Terrenos: Especulación a largo plazo
+
+### Financiamiento
+1. Crédito hipotecario: Apalancamiento
+2. Tasa: 4-7% anual
+3. Plazo: 15-20 años
+4. Cuota inicial: 20-40%
+
+## Riesgos Inmobiliarios
+
+### Riesgo de Vacancia
+- Probabilidad de no encontrar inquilino
+- Afecta cash flow
+- Mitigation: Ubicación estratégica
+
+### Riesgo de Inquilino
+- Inquilino moroso o destructivo
+- Pérdida de ingresos
+- Mitigation: Depósito caución, referencias
+
+### Riesgo de Mercado
+- Caída de precios en la zona
+- Pérdida de capital
+- Mitigation: Diversificación
+
+### Riesgo Legal
+- Problemas de documentación
+- Desalojos complicados
+- Mitigation: Asesoría legal profesional
+
+## Plan de Inversión Inmobiliaria
+
+### Paso 1: Definir Objetivo (1 mes)
+- ¿Ingresos o apreciación?
+- ¿Cuánto puedo invertir?
+- ¿Cuál es mi horizonte?
+
+### Paso 2: Investigación (2-3 meses)
+- Analizar mercado y zonas
+- Calcular rentabilidad
+- Comparar opciones
+
+### Paso 3: Análisis Financiero (1 mes)
+- Calcular inversión total
+- Proyectar ingresos
+- Evaluar viabilidad
+
+### Paso 4: Evaluación Legal (2 semanas)
+- Revisar documentos
+- Verificar libertad y tradición
+- Consultar experto legal
+
+### Paso 5: Negociación y Cierre (2-4 semanas)
+- Oferta y contraoferta
+- Formalización
+- Registro
+
+## Herramientas Financieras
+
+### Excel - Análisis ROI
+```
+ROI = (Ganancia / Inversión) × 100
+Cap Rate = (NOI / Valor Propiedad) × 100
+```
+
+### Calculadora de Hipoteca
+- Precio: 500M COP
+- Cuota inicial: 20% (100M)
+- Tasa: 6% anual
+- Plazo: 20 años
+- Cuota mensual: ~2.8M COP
+
+---
+Documento educativo sobre inversión inmobiliaria.
+Para asesoría profesional, consultar experto.
+Actualizado: 2026
