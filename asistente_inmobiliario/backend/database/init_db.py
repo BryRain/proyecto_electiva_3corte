@@ -9,8 +9,8 @@ backend_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.insert(0, backend_dir)
 sys.path.insert(0, os.path.dirname(backend_dir))
 
-from app import app, db
-from database.models import User, Property
+from backend.app import app, db
+from backend.database.models import User, Property
 import bcrypt
 
 def init_database():

@@ -90,3 +90,4 @@ pip-delete-this-directory.txt
 # Testing
 .tox/
 .hypothesis/
+asistente_inmobiliario/inmobiliario.db
