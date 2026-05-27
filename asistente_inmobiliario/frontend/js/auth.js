@@ -14,6 +14,9 @@ function toggleAuthForm() {
 }
 
 function initAuthEvents() {
+    // Show auth section
+    document.getElementById('auth-section').classList.remove('hidden');
+    
     // Show login form by default
     document.getElementById('login-form').classList.add('active');
 

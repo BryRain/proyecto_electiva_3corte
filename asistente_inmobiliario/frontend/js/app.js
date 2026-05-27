@@ -61,14 +61,19 @@ function displayAIResponse(result) {
     const agentsDiv = document.getElementById('agents-responses');
     const ragDiv = document.getElementById('rag-results');
 
-    // Main synthesis
-    contentDiv.innerHTML = `<p>${result.synthesis?.response || result.ai_response?.synthesis || 'Análisis completado'}</p>`;
+    // Main synthesis - Solo mostrar la respuesta del coordinador
+    const synthesis = result.ai_response?.agents_responses?.coordinator?.response || result.synthesis?.response || 'Análisis completado';
+    contentDiv.innerHTML = `<p>${synthesis}</p>`;
 
-    // Agents responses
+    // Agents responses - Solo mostrar search y evaluator (más relevantes)
     agentsDiv.innerHTML = '';
     if (result.ai_response?.agents_responses) {
-        Object.entries(result.ai_response.agents_responses).forEach(([agentName, data]) => {
-            agentsDiv.appendChild(formatAgentResponse(agentName, data.response));
+        const relevantAgents = ['search', 'evaluator'];
+        relevantAgents.forEach(agentKey => {
+            const agent = result.ai_response.agents_responses[agentKey];
+            if (agent) {
+                agentsDiv.appendChild(formatAgentResponse(agentKey, agent.response));
+            }
         });
     }
 

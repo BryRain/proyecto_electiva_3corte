@@ -1,5 +1,5 @@
 
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, send_from_directory
 from flask_cors import CORS
 from flask_jwt_extended import JWTManager, jwt_required, get_jwt_identity
 from dotenv import load_dotenv
@@ -17,8 +17,9 @@ from backend.rag.vector_store import VectorStore
 from backend.rag.document_processor import DocumentProcessor
 from backend.agents.multi_agent import MultiAgent
 
-# Crear aplicación Flask
-app = Flask(__name__)
+# Crear aplicación Flask con carpeta estática del frontend
+frontend_path = os.path.join(os.path.dirname(__file__), '..', 'frontend')
+app = Flask(__name__, static_folder=frontend_path, static_url_path='')
 env = os.getenv('FLASK_ENV', 'development')
 app.config.from_object(config.get(env, Config))
 
@@ -42,6 +43,11 @@ def initialize_components():
         vector_store = VectorStore(app.config['RAG_DB_PATH'])
 
 # ==================== RUTAS DE PROPIEDADES ====================
+
+@app.route('/')
+def index():
+    """Servir el frontend"""
+    return send_from_directory(app.static_folder, 'index.html')
 
 @app.route('/api/properties', methods=['GET'])
 def get_properties():

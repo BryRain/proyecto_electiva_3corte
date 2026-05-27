@@ -1,6 +1,7 @@
-import anthropic
+import requests
 from typing import Optional
 import json
+import os
 
 class Agent:
     """Agent individual que ejecuta tareas específicas"""
@@ -9,38 +10,65 @@ class Agent:
         self.name = name
         self.role = role
         self.instructions = instructions
-        self.client = anthropic.Anthropic()
+        # Configurar OpenRouter API
+        self.api_key = os.getenv('OPENROUTER_API_KEY')
+        if not self.api_key:
+            raise ValueError("OPENROUTER_API_KEY no está configurada")
+        self.base_url = "https://openrouter.ai/api/v1"
+        self.model = "openai/gpt-3.5-turbo"  # O puedes usar otro modelo disponible
     
     def execute(self, task: str, context: dict = None) -> dict:
         """Ejecutar tarea del agent"""
         context_str = json.dumps(context) if context else ""
         
-        prompt = f"""
-        You are {self.name}, a {self.role}.
+        prompt = f"""You are {self.name}, a {self.role}.
+
+Instructions: {self.instructions}
+
+Context: {context_str}
+
+Task: {task}
+
+Provide a structured response with:
+1. Analysis
+2. Recommendations
+3. Next steps"""
         
-        Instructions: {self.instructions}
-        
-        Context: {context_str}
-        
-        Task: {task}
-        
-        Provide a structured response with:
-        1. Analysis
-        2. Recommendations
-        3. Next steps
-        """
-        
-        message = self.client.messages.create(
-            model="claude-3-5-sonnet-20241022",
-            max_tokens=1024,
-            messages=[{"role": "user", "content": prompt}]
-        )
-        
-        return {
-            'agent': self.name,
-            'response': message.content[0].text,
-            'status': 'completed'
-        }
+        try:
+            response = requests.post(
+                f"{self.base_url}/chat/completions",
+                headers={
+                    "Authorization": f"Bearer {self.api_key}",
+                    "Content-Type": "application/json"
+                },
+                json={
+                    "model": self.model,
+                    "messages": [
+                        {"role": "system", "content": f"You are {self.name}, a {self.role}. {self.instructions}"},
+                        {"role": "user", "content": task}
+                    ],
+                    "temperature": 0.7,
+                    "max_tokens": 300
+                }
+            )
+            
+            if response.status_code != 200:
+                raise Exception(f"Error en OpenRouter: {response.text}")
+            
+            data = response.json()
+            response_text = data['choices'][0]['message']['content']
+            
+            return {
+                'agent': self.name,
+                'response': response_text,
+                'status': 'completed'
+            }
+        except Exception as e:
+            return {
+                'agent': self.name,
+                'response': f'Error: {str(e)}',
+                'status': 'error'
+            }
 
 class MultiAgent:
     """Sistema Multi-Agent coordinado"""
@@ -56,60 +84,35 @@ class MultiAgent:
         self.agents['search'] = Agent(
             name="SearchAgent",
             role="Real Estate Property Search Specialist",
-            instructions="""
-            You are specialized in searching and filtering real estate properties.
-            Analyze user requirements and search criteria.
-            Extract key parameters: location, price range, property type, amenities.
-            Provide structured search recommendations.
-            """
+            instructions="Search for properties based on user criteria. Return only key search parameters and 2-3 recommendations in 100 words max."
         )
         
         # Agent 2: Evaluador de Propiedades
         self.agents['evaluator'] = Agent(
             name="PropertyEvaluator",
             role="Real Estate Valuation Expert",
-            instructions="""
-            You are specialized in property evaluation and valuation.
-            Analyze property details, market comparables, and location factors.
-            Provide investment potential assessment.
-            Give price recommendations and market analysis.
-            """
+            instructions="Evaluate properties and market. Provide brief assessment in 80 words max. Focus on: price fairness, location, investment potential."
         )
         
         # Agent 3: Asesor Financiero
         self.agents['finance'] = Agent(
             name="FinancialAdvisor",
             role="Mortgage and Financial Planning Expert",
-            instructions="""
-            You are specialized in mortgage calculations and financial planning.
-            Provide mortgage estimates, down payment recommendations.
-            Analyze affordability based on income and property price.
-            Suggest financing options and payment plans.
-            """
+            instructions="Provide mortgage estimates. Be brief: estimate down payment and monthly payment in 80 words max. Ask only essential questions."
         )
         
         # Agent 4: Especialista Legal
         self.agents['legal'] = Agent(
             name="LegalAdvisor",
             role="Real Estate Legal Expert",
-            instructions="""
-            You are specialized in real estate legal matters.
-            Provide information about property documentation requirements.
-            Explain legal considerations, contracts, and regulations.
-            Give advice on due diligence and documentation.
-            """
+            instructions="Provide legal considerations for property purchase. Keep it brief (60 words): title, documents needed, due diligence checklist."
         )
         
         # Agent 5: Coordinador
         self.agents['coordinator'] = Agent(
             name="Coordinator",
             role="Real Estate Transaction Coordinator",
-            instructions="""
-            You are specialized in coordinating real estate transactions.
-            Orchestrate workflow between different specialists.
-            Synthesize recommendations from all agents.
-            Provide comprehensive transaction guidance.
-            """
+            instructions="Synthesize all specialist recommendations into a brief, actionable summary for the client. Maximum 150 words. Focus on: next steps and key recommendations."
         )
     
     def execute_workflow(self, user_query: str, user_context: dict = None) -> dict:

@@ -89,7 +89,7 @@ asistente_inmobiliario/
 
 - Python 3.8+
 - Node.js (opcional, para frontend mejorado)
-- API Key de OpenAI o Anthropic
+- API Key de Google Generative AI
 - SQLite (incluido en Python)
 
 ## Instalación 🚀
@@ -240,7 +240,7 @@ Respuesta integrada al usuario
 - **Flask** - Framework web Python
 - **SQLAlchemy** - ORM para bases de datos
 - **Flask-JWT-Extended** - Autenticación JWT
-- **Anthropic Claude** - Agentes IA
+- **Google Generative AI** - Agentes IA con Gemini
 - **OpenAI** - Embeddings vectoriales
 - **Chroma** - Base de datos vectorial
 - **FastAPI** - MCP Server
@@ -265,7 +265,7 @@ JWT_SECRET_KEY=tu-jwt-secreto
 
 # APIs
 OPENAI_API_KEY=sk-...
-ANTHROPIC_API_KEY=sk-ant-...
+GOOGLE_API_KEY=tu-google-api-key
 
 # Database
 DATABASE_URL=sqlite:///inmobiliario.db
@@ -314,7 +314,7 @@ console.log(apiClient.baseURL);
 
 Para preguntas o issues, consultar documentación en:
 - [OpenAI Docs](https://platform.openai.com/docs)
-- [Anthropic Docs](https://docs.anthropic.com)
+- [Google AI Docs](https://ai.google.dev/docs)
 - [Chroma Docs](https://docs.trychroma.com)
 
 ---

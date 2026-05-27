@@ -25,7 +25,7 @@
 ┌──────────────┐  ┌──────────┐  ┌──────────┐  ┌──────────────┐
 │ Multi-Agent  │  │   RAG    │  │ Database │  │  MCP Server  │
 │ System       │  │  System  │  │  (SQL)   │  │  (FastAPI)   │
-│ (Claude AI)  │  │(Chroma)  │  │          │  │              │
+│ (Gemini AI)  │  │(Chroma)  │  │          │  │              │
 └──────────────┘  └──────────┘  └──────────┘  └──────────────┘
 ```
 
@@ -108,7 +108,7 @@ Almacenamiento en localStorage (frontend)
 5. **Coordinator**: Sintetiza todas las perspectivas
 
 **Implementación:**
-- Cada agente es una instancia de Claude AI
+- Cada agente es una instancia de Google Gemini AI
 - Se ejecutan secuencialmente (pueden ser paralelos en v2)
 - Comparten contexto a través de diccionarios
 - La salida de uno alimenta la entrada del siguiente
@@ -333,7 +333,7 @@ CMD ["gunicorn", "--bind", "0.0.0.0:5000", "backend.app:app"]
 FLASK_ENV=production
 SECRET_KEY=your-production-key
 OPENAI_API_KEY=sk-...
-ANTHROPIC_API_KEY=sk-ant-...
+GOOGLE_API_KEY=your-google-api-key
 DATABASE_URL=postgresql://...
 ```
 
